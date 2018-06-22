@@ -1,5 +1,6 @@
 require_relative "tile"
 
+
 class Board
   attr_reader :grid
 
@@ -38,6 +39,11 @@ class Board
     rows.transpose
   end
 
+  def rows
+    rows = grid.dup
+  end
+
+
   def render
     puts "  #{(0..8).to_a.join(" ")}"
     grid.each_with_index do |row, i|
@@ -50,12 +56,10 @@ class Board
     grid.size
   end
 
-  alias_method :rows, :size
-
   def solved?
     rows.all? { |row| solved_set?(row) } &&
-      columns.all? { |col| solved_set?(col) } &&
-      squares.all? { |square| solved_set?(square) }
+    columns.all? { |col| solved_set?(col) } &&
+    squares.all? { |square| solved_set?(square) }
   end
 
   def solved_set?(tiles)
